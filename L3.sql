@@ -6,7 +6,7 @@ branch_name,
 FROM `tokyo-comfort-455613-e1.L2.L2_branch`
 WHERE branch_name IS NOT NULL AND branch_name != "unknown"
 
-
+---Total usd paid (per invoice): amount_w_vat - return_w_vat
 CREATE OR REPLACE VIEW `tokyo-comfort-455613-e1.L3.L3_invoice` AS
 SELECT
   invoice_id, -- PK
@@ -37,7 +37,7 @@ product_type,
 FROM `tokyo-comfort-455613-e1.L2.L2_product_purchase`
 where product_name is not null
 
-
+---Contract duration: (contract_valid_from, contract_valid_to): 'less than half year’, 1 year, 2 years, 'more then 2 year’. Pokud contract_valid_from, contract_valid_to je NULL, potrebujeme odfiltrovat.
 CREATE OR REPLACE VIEW `tokyo-comfort-455613-e1.L3.L3_fact_contract` AS
 SELECT
 c.contract_id , -- PK
