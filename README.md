@@ -7,6 +7,7 @@ Jedná se o imaginární zakázku od společnosti nabízející předplatné na 
 V pipelině jsou vytvořeny 3 datové vrstvy. 
 
 L1 je vytvářena kvůli přetypování (castování) dat původně ve stringu na odpovídající datové typy. Na začátku je 7 tabulek.
+
 L2 je omezen počet tabulek na základě předpokladů pro budoucí analytický report na 5 tabulek. Jsou doplněna nějaká omezení na data... s jakými kategoriemi počítat na základě požadavků zákazníka. Jsou dopočítání další sloupce. 
 Business otázky:
 Kteří zákazníci a kdy odcházejí?
