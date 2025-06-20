@@ -15,3 +15,6 @@ Nakupují málo/hodně?
 Existují ještě produkty, které nakupovali?
 
 L3 Počet tabulek je omezen na 4. Tabulka contract byla zvolena jako faktická tabulka pro star schema pro budoucí report. Na tomto základě byla doplněna o některé faktické údaje z ostatních tabulek. 
+
+
+![dat_inz_du drawio](https://github.com/user-attachments/assets/2a3c8924-0d36-4011-9767-be0e17c4fd36)
