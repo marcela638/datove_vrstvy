@@ -18,7 +18,7 @@ DATE(DATETIME(TIMESTAMP(activation_process_date), "Europe/Prague")) AS activatio
 DATE(DATETIME(TIMESTAMP(prolongation_date), "Europe/Prague")) AS prolongation_date,
 registration_end_reason AS registration_end_reason,
 CAST(flag_prolongation AS BOOL) AS flag_prolongation, ---ověřeno dříve distinct, že jsou jen true or false
-CAST(flag_send_inv_email AS BOOL) AS flag_send_inv_email,  ---ověřeno dříve distinct, že jsou jen true or false
+CAST(flag_send_inv_email AS BOOL) AS flag_send_inv_email,  ---ověřeno dříve distinct, že jsou jen true or false 
 contract_status AS contract_status,
 DATE(DATETIME(TIMESTAMP(load_date), "Europe/Prague")) AS load_date,
 FROM `tokyo-comfort-455613-e1.L0_crm.contract`
@@ -54,7 +54,7 @@ SELECT
   CAST(id_branch AS INT64) AS branch_id, -- FK  --- ověřeno dríve, že žádná hodnota není Null
 
 
-  SAFE_CAST(invoice_type AS INT64) AS invoice_type_id,
+  SAFE_CAST(invoice_type AS INT64) AS invoice_type_id, ---Invice_type: 1 - invoice, 3 -  credit_note, 2 - return, 4 – other, Dá se popsat jako string a jako invoice_id
   CASE
     WHEN SAFE_CAST(invoice_type AS INT64) = 1 THEN 'invoice'
     WHEN SAFE_CAST(invoice_type AS INT64) = 2 THEN 'return'
@@ -137,7 +137,7 @@ SAFE_CAST(pp.package_status AS INT64) AS product_status,   --FK
 pp.measure_unit AS measure_unit,
 SAFE_CAST(pp.id_branch AS INT64) AS branch_id, --FK
 DATE(DATETIME(TIMESTAMP(pp.load_date), "Europe/Prague")) AS load_date,
-
+--- pomocí joinu přidání některé sloupce z tabulek product a status
 p.name AS product_name,
 p.type AS product_type,
 p.category AS product_category,
