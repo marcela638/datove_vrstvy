@@ -1,3 +1,4 @@
+---L2_branch: Nechceme branch_name ‘unknown’
 CREATE OR REPLACE VIEW `tokyo-comfort-455613-e1.L2.L2_branch` AS
 select
 branch_id, ---PK
@@ -6,6 +7,10 @@ branch_name,
 FROM `tokyo-comfort-455613-e1.L1.L1_branch`
 WHERE branch_name IS NOT NULL AND branch_name != "unknown"
 
+
+ ---L2_invoice: Chceme se divat jenom na vystaveny faktury (invoice_type = 'invoice’ a flag_invoice_issued). 
+----  Chceme mit take amount without VAT, potrebujeme to dopocitat (VAT je v tomoto pripade obecne 20%) (amount_w_vat <= 0 THEN 0). Chceme mit invoice_order na zaklade na urocvni kontraktu (date_issue a contract_id).  
+  
 CREATE OR REPLACE VIEW `tokyo-comfort-455613-e1.L2.L2_invoice` AS
 SELECT
   invoice_id, -- PK
@@ -45,6 +50,8 @@ FROM `tokyo-comfort-455613-e1.L1.L1_invoice`
 where invoice_type = "invoice"
 and flag_invoice_issued ="issued"
 
+
+----  L2_product: Produkty z kategorie 'product', 'rent’
 CREATE OR REPLACE VIEW `tokyo-comfort-455613-e1.L2.L2_product` AS
 select
 product_id,
@@ -56,6 +63,12 @@ category,
 FROM `tokyo-comfort-455613-e1.L1.L1_product`
 where category in ("product", "rent")
 
+
+
+
+ -----L2_product_purchase:  Produkty z kategorie 'product', 'rent’. Product status musi aspon neco obsahovat a zaroven nebyt zruseny nebo disconnected. 
+---  Tady naopak chceme dopocitat price_w_vat. 
+---  Pridat flag_unlimited_product: IF(product_valid_from = '2035-12-31', TRUE, FALSE). Chceme popremyslet jak srovname measure_unit! 
 CREATE OR REPLACE VIEW `tokyo-comfort-455613-e1.L2.L2_product_purchase` AS
 SELECT
 product_purchase_id,  ---PK
@@ -85,6 +98,8 @@ where product_category in ("product", "rent")
   AND status_name NOT IN ("Canceled", "Canceled registration", "Disconnected")
   AND status_name IS NOT NULL;
 
+
+---L2_contract: Všechny kontrakty kde je registred_date
 CREATE OR REPLACE VIEW `tokyo-comfort-455613-e1.L2.L2_contract` AS
 SELECT
 contract_id , -- PK
